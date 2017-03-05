@@ -89,8 +89,16 @@ $('.shopping-list').on('click', '.shopping-item-delete', function(event){
 $('.shopping-list').on('click', '.shopping-item-toggle', function(event){
 	event.preventDefault();
     console.log(state);
-    console.log("Hello!")
-    checkItem(state, this);
+    console.log("Hello!");
+    var itemId = $(this.closest('li')).attr('data-list-item-id'); //itemId - dobiš ta index, ki je spodaj
+    var currentItem = getItem(state, itemId);
+    if (currentItem.checkedOff === false) {
+        checkItem(state, this);
+    }
+    else {
+        unCheckItem(state, this);
+    }
+    
     
     renderList(state, $('.shopping-list'));
   //  $('.shopping-item').toggleClass("shopping-item__checked");
