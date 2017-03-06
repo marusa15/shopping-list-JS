@@ -21,14 +21,12 @@ function getItem(state, itemIndex) {
 
 // delete item
 var deleteItem = function(state, item) {
-	state.items.splice(item, 1);
+    var itemId = $(item.closest('li')).attr('data-list-item-id'); 
+   	state.items.splice(itemId, 1);
 }
 
 // check item
 var checkItem = function(state, item) {
-
-
-    
     var itemId = $(item.closest('li')).attr('data-list-item-id'); //itemId - dobiš ta index, ki je spodaj
     var currentItem = getItem(state, itemId);
  
@@ -37,9 +35,8 @@ var checkItem = function(state, item) {
 };
 
 
-//var currentItem = state.items[$(item.closest('li')).attr('data-list-item-id')];
-
 // un-check item
+
 var unCheckItem = function(state, item) {
     var itemId = $(item.closest('li')).attr('data-list-item-id');
     var currentItem = getItem(state, itemId);
@@ -48,6 +45,7 @@ var unCheckItem = function(state, item) {
 }
 
 // Render functions
+
 var renderList = function(state, element) {
     var itemsHTML = state.items.map(function(item, index) {
         if (item.checkedOff === false) {
@@ -75,11 +73,12 @@ $('#js-shopping-list-form').submit(function(event) {
 });
 
 //deletes items
+
 $('.shopping-list').on('click', '.shopping-item-delete', function(event){
     event.preventDefault();
     console.log(state);
     deleteItem(state, this);
-  //  console.log(this);
+    console.log(this);
     renderList(state, $('.shopping-list'));
 
 });
@@ -92,6 +91,7 @@ $('.shopping-list').on('click', '.shopping-item-toggle', function(event){
     console.log("Hello!");
     var itemId = $(this.closest('li')).attr('data-list-item-id'); //itemId - dobiš ta index, ki je spodaj
     var currentItem = getItem(state, itemId);
+
     if (currentItem.checkedOff === false) {
         checkItem(state, this);
     }
@@ -101,20 +101,10 @@ $('.shopping-list').on('click', '.shopping-item-toggle', function(event){
     
     
     renderList(state, $('.shopping-list'));
-  //  $('.shopping-item').toggleClass("shopping-item__checked");
+  
 });
 
-/*$('.shopping-list').on('click', '.shopping-item-toggle', function(event){
-    event.preventDefault();
-    console.log(state);
-    console.log("Hello!")
-    
-    unCheckItem(state, this);
-    
-    renderList(state, $('.shopping-list'));
-  //  $('.shopping-item').toggleClass("shopping-item__checked");
-});
-*/
+
 
 
 
